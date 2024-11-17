@@ -249,13 +249,19 @@ def from_qiskit(circuit: qiskit.QuantumCircuit) -> cirq.Circuit:
     Returns:
         Mitiq circuit representation equivalent to the input Qiskit circuit.
     """
+    def _fully_decompose(circuit:qiskit.QuantumCircuit) -> qiskit.QuantumCircuit:
+        """Recursively decomposes a Qiskit circuit until all gates are native."""
+        while any(instr.definition for instr, _, _ in circuit.data):  # Check for non-native gates
+            circuit = circuit.decompose()
+        return circuit
+    
     try:
         mitiq_circuit = from_qasm(qasm2.dumps(circuit))
     except QasmException:
         # Try to decompose circuit before running
         # This is necessary for converting qiskit circuits with
         # custom packaged gates, e.g., QFT gates
-        circuit = circuit.decompose()
+        circuit = _fully_decompose(circuit)
         mitiq_circuit = from_qasm(qasm2.dumps(circuit))
     return mitiq_circuit
 
