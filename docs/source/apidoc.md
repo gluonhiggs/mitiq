@@ -9,6 +9,13 @@
 
 ## Error-Mitigation Techniques
 
+### Problematic Module
+
+```{eval-rst}
+.. automodule:: mitiq.problematic_module
+   :members:
+```
+
 ### Classical Shadows
 
 #### Classical Shadows (High-Level Tools)

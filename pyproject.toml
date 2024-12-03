@@ -3,6 +3,7 @@ exclude = ["__init__.py"]
 line-length = 79
 target-version = 'py312'
 
+
 [tool.ruff.lint]
 select = [
     # pycodestyle
@@ -11,6 +12,7 @@ select = [
     "F",
     # isort
     "I",
+    "D",
 ]
 
 [tool.pytest.ini_options]
